@@ -1,7 +1,14 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include "ReadConfig.h"
+#include <iostream>
+#include <sstream>
+#include <windows.h>
+#include <stdio.h>
+
 using namespace std;
+
+#define CONFIG_FILE_NAME ".\\config.ini"
 
 void ReadFile(FILE *configFile, ConfigList *configlist)
 {
@@ -10,1859 +17,316 @@ void ReadFile(FILE *configFile, ConfigList *configlist)
 
 	memset(configlist, 0, sizeof(ConfigList));
 
-	while (NULL != fgets(LineBuf, sizeof(LineBuf), configFile))
-	{
-		size_t bufLen = strlen(LineBuf);
-		if ('\r' == LineBuf[bufLen - 1] || '\n' == LineBuf[bufLen - 1])
-		{
-			LineBuf[bufLen - 1] = '\0';
-		}
-		char *pos = strchr(LineBuf, ':');
-		if (NULL != pos)
-		{
-			*pos = '\0';
-			pos++;
-			if (0 == strcmp(LineBuf, "AppAddr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->AppAddr, pos);
-			}
-			if (0 == strcmp(LineBuf, "ServerAppAddr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->ServerAppAddr, pos);
-			}
-			if (0 == strcmp(LineBuf, "DeviceNum"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->DeviceNum, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Function, pos);
-			}
+//-----------------------------------------------------Read Config------------------------------------------------------
+	                                                   //Camera0
+//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera0", "CameraFunction", "", configlist->Camera0Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraExptime", "", configlist->Camera0Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraExpauto", "", configlist->Camera0Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraGain", "", configlist->Camera0Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraGainauto", "", configlist->Camera0Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraFrate", "", configlist->Camera0Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraDevid", "", configlist->Camera0Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "Camerausrid", "", configlist->Camera0usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraRoih", "", configlist->Camera0Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraRoiw", "", configlist->Camera0Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraRoix", "", configlist->Camera0Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraRoiy", "", configlist->Camera0Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraStampsel", "", configlist->Camera0Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraStampon", "", configlist->Camera0Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTsele", "", configlist->Camera0Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTmode", "", configlist->Camera0Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTsrc", "", configlist->Camera0Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTacti", "", configlist->Camera0Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTdelay", "", configlist->Camera0Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraTcaen", "", configlist->Camera0Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraEmax", "", configlist->Camera0Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraEmin", "", configlist->Camera0Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraXr", "", configlist->Camera0Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraGthread", "", configlist->Camera0Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraDoorin", "", configlist->Camera0Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraFcut", "", configlist->Camera0Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraBrate", "", configlist->Camera0Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraBtol", "", configlist->Camera0Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera0", "CameraEthread", "", configlist->Camera0Ethread, 128, CONFIG_FILE_NAME);
 
-			if (0 == strcmp(LineBuf, "Camera0Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera0Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera0Ethread, pos);
-			}
-			//---------------------------------------------------------------
+		//-----------------------------------------------------Read Config------------------------------------------------------
+													          //Camera1
+//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera1", "CameraFunction", "", configlist->Camera1Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraExptime", "", configlist->Camera1Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraExpauto", "", configlist->Camera1Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraGain", "", configlist->Camera1Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraGainauto", "", configlist->Camera1Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraFrate", "", configlist->Camera1Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraDevid", "", configlist->Camera1Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "Camerausrid", "", configlist->Camera1usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraRoih", "", configlist->Camera1Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraRoiw", "", configlist->Camera1Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraRoix", "", configlist->Camera1Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraRoiy", "", configlist->Camera1Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraStampsel", "", configlist->Camera1Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraStampon", "", configlist->Camera1Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTsele", "", configlist->Camera1Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTmode", "", configlist->Camera1Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTsrc", "", configlist->Camera1Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTacti", "", configlist->Camera1Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTdelay", "", configlist->Camera1Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraTcaen", "", configlist->Camera1Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraEmax", "", configlist->Camera1Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraEmin", "", configlist->Camera1Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraXr", "", configlist->Camera1Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraGthread", "", configlist->Camera1Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraDoorin", "", configlist->Camera1Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraFcut", "", configlist->Camera1Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraBrate", "", configlist->Camera1Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraBtol", "", configlist->Camera1Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera1", "CameraEthread", "", configlist->Camera1Ethread, 128, CONFIG_FILE_NAME);
+		
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera2
+		//----------------------------------------------------------------------------------------------------------------------
+		
+		GetPrivateProfileStringA("Camera2", "CameraFunction", "", configlist->Camera2Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraExptime", "", configlist->Camera2Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraExpauto", "", configlist->Camera2Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraGain", "", configlist->Camera2Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraGainauto", "", configlist->Camera2Gainauto, 228, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraFrate", "", configlist->Camera2Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraDevid", "", configlist->Camera2Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "Camerausrid", "", configlist->Camera2usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraRoih", "", configlist->Camera2Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraRoiw", "", configlist->Camera2Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraRoix", "", configlist->Camera2Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraRoiy", "", configlist->Camera2Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraStampsel", "", configlist->Camera2Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraStampon", "", configlist->Camera2Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTsele", "", configlist->Camera2Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTmode", "", configlist->Camera2Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTsrc", "", configlist->Camera2Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTacti", "", configlist->Camera2Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTdelay", "", configlist->Camera2Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraTcaen", "", configlist->Camera2Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraEmax", "", configlist->Camera2Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraEmin", "", configlist->Camera2Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraXr", "", configlist->Camera2Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraGthread", "", configlist->Camera2Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraDoorin", "", configlist->Camera2Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraFcut", "", configlist->Camera2Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraBrate", "", configlist->Camera2Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraBtol", "", configlist->Camera2Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera2", "CameraEthread", "", configlist->Camera2Ethread, 128, CONFIG_FILE_NAME);
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera3
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera3", "CameraFunction", "", configlist->Camera3Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraExptime", "", configlist->Camera3Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraExpauto", "", configlist->Camera3Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraGain", "", configlist->Camera3Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraGainauto", "", configlist->Camera3Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraFrate", "", configlist->Camera3Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraDevid", "", configlist->Camera3Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "Camerausrid", "", configlist->Camera3usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraRoih", "", configlist->Camera3Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraRoiw", "", configlist->Camera3Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraRoix", "", configlist->Camera3Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraRoiy", "", configlist->Camera3Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraStampsel", "", configlist->Camera3Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraStampon", "", configlist->Camera3Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTsele", "", configlist->Camera3Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTmode", "", configlist->Camera3Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTsrc", "", configlist->Camera3Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTacti", "", configlist->Camera3Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTdelay", "", configlist->Camera3Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraTcaen", "", configlist->Camera3Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraEmax", "", configlist->Camera3Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraEmin", "", configlist->Camera3Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraXr", "", configlist->Camera3Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraGthread", "", configlist->Camera3Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraDoorin", "", configlist->Camera3Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraFcut", "", configlist->Camera3Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraBrate", "", configlist->Camera3Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraBtol", "", configlist->Camera3Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera3", "CameraEthread", "", configlist->Camera3Ethread, 128, CONFIG_FILE_NAME);
 
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera4
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera4", "CameraFunction", "", configlist->Camera4Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraExptime", "", configlist->Camera4Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraExpauto", "", configlist->Camera4Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraGain", "", configlist->Camera4Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraGainauto", "", configlist->Camera4Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraFrate", "", configlist->Camera4Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraDevid", "", configlist->Camera4Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "Camerausrid", "", configlist->Camera4usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraRoih", "", configlist->Camera4Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraRoiw", "", configlist->Camera4Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraRoix", "", configlist->Camera4Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraRoiy", "", configlist->Camera4Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraStampsel", "", configlist->Camera4Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraStampon", "", configlist->Camera4Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTsele", "", configlist->Camera4Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTmode", "", configlist->Camera4Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTsrc", "", configlist->Camera4Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTacti", "", configlist->Camera4Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTdelay", "", configlist->Camera4Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraTcaen", "", configlist->Camera4Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraEmax", "", configlist->Camera4Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraEmin", "", configlist->Camera4Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraXr", "", configlist->Camera4Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraGthread", "", configlist->Camera4Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraDoorin", "", configlist->Camera4Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraFcut", "", configlist->Camera4Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraBrate", "", configlist->Camera4Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraBtol", "", configlist->Camera4Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera4", "CameraEthread", "", configlist->Camera4Ethread, 128, CONFIG_FILE_NAME);
 
-			if (0 == strcmp(LineBuf, "Camera1Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Function, pos);
-			}
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera5
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera5", "CameraFunction", "", configlist->Camera5Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraExptime", "", configlist->Camera5Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraExpauto", "", configlist->Camera5Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraGain", "", configlist->Camera5Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraGainauto", "", configlist->Camera5Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraFrate", "", configlist->Camera5Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraDevid", "", configlist->Camera5Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "Camerausrid", "", configlist->Camera5usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraRoih", "", configlist->Camera5Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraRoiw", "", configlist->Camera5Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraRoix", "", configlist->Camera5Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraRoiy", "", configlist->Camera5Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraStampsel", "", configlist->Camera5Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraStampon", "", configlist->Camera5Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTsele", "", configlist->Camera5Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTmode", "", configlist->Camera5Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTsrc", "", configlist->Camera5Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTacti", "", configlist->Camera5Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTdelay", "", configlist->Camera5Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraTcaen", "", configlist->Camera5Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraEmax", "", configlist->Camera5Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraEmin", "", configlist->Camera5Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraXr", "", configlist->Camera5Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraGthread", "", configlist->Camera5Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraDoorin", "", configlist->Camera5Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraFcut", "", configlist->Camera5Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraBrate", "", configlist->Camera5Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraBtol", "", configlist->Camera5Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera5", "CameraEthread", "", configlist->Camera5Ethread, 128, CONFIG_FILE_NAME);
 
-			if (0 == strcmp(LineBuf, "Camera1Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera1Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera1Ethread, pos);
-			}
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera6
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera6", "CameraFunction", "", configlist->Camera6Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraExptime", "", configlist->Camera6Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraExpauto", "", configlist->Camera6Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraGain", "", configlist->Camera6Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraGainauto", "", configlist->Camera6Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraFrate", "", configlist->Camera6Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraDevid", "", configlist->Camera6Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "Camerausrid", "", configlist->Camera6usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraRoih", "", configlist->Camera6Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraRoiw", "", configlist->Camera6Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraRoix", "", configlist->Camera6Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraRoiy", "", configlist->Camera6Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraStampsel", "", configlist->Camera6Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraStampon", "", configlist->Camera6Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTsele", "", configlist->Camera6Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTmode", "", configlist->Camera6Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTsrc", "", configlist->Camera6Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTacti", "", configlist->Camera6Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTdelay", "", configlist->Camera6Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraTcaen", "", configlist->Camera6Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraEmax", "", configlist->Camera6Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraEmin", "", configlist->Camera6Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraXr", "", configlist->Camera6Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraGthread", "", configlist->Camera6Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraDoorin", "", configlist->Camera6Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraFcut", "", configlist->Camera6Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraBrate", "", configlist->Camera6Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraBtol", "", configlist->Camera6Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera6", "CameraEthread", "", configlist->Camera6Ethread, 128, CONFIG_FILE_NAME);
 
-			//---------------------------------------------------------------
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera7
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera7", "CameraFunction", "", configlist->Camera7Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraExptime", "", configlist->Camera7Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraExpauto", "", configlist->Camera7Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraGain", "", configlist->Camera7Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraGainauto", "", configlist->Camera7Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraFrate", "", configlist->Camera7Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraDevid", "", configlist->Camera7Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "Camerausrid", "", configlist->Camera7usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraRoih", "", configlist->Camera7Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraRoiw", "", configlist->Camera7Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraRoix", "", configlist->Camera7Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraRoiy", "", configlist->Camera7Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraStampsel", "", configlist->Camera7Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraStampon", "", configlist->Camera7Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTsele", "", configlist->Camera7Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTmode", "", configlist->Camera7Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTsrc", "", configlist->Camera7Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTacti", "", configlist->Camera7Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTdelay", "", configlist->Camera7Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraTcaen", "", configlist->Camera7Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraEmax", "", configlist->Camera7Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraEmin", "", configlist->Camera7Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraXr", "", configlist->Camera7Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraGthread", "", configlist->Camera7Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraDoorin", "", configlist->Camera7Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraFcut", "", configlist->Camera7Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraBrate", "", configlist->Camera7Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraBtol", "", configlist->Camera7Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera7", "CameraEthread", "", configlist->Camera7Ethread, 128, CONFIG_FILE_NAME);
 
-			if (0 == strcmp(LineBuf, "Camera2Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Function, pos);
-			}
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Camera8
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("Camera8", "CameraFunction", "", configlist->Camera8Function, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraExptime", "", configlist->Camera8Exptime, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraExpauto", "", configlist->Camera8Expauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraGain", "", configlist->Camera8Gain, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraGainauto", "", configlist->Camera8Gainauto, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraFrate", "", configlist->Camera8Frate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraDevid", "", configlist->Camera8Devid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "Camerausrid", "", configlist->Camera8usrid, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraRoih", "", configlist->Camera8Roih, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraRoiw", "", configlist->Camera8Roiw, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraRoix", "", configlist->Camera8Roix, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraRoiy", "", configlist->Camera8Roiy, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraStampsel", "", configlist->Camera8Stampsel, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraStampon", "", configlist->Camera8Stampon, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTsele", "", configlist->Camera8Tsele, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTmode", "", configlist->Camera8Tmode, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTsrc", "", configlist->Camera8Tsrc, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTacti", "", configlist->Camera8Tacti, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTdelay", "", configlist->Camera8Tdelay, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraTcaen", "", configlist->Camera8Tcaen, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraEmax", "", configlist->Camera8Emax, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraEmin", "", configlist->Camera8Emin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraXr", "", configlist->Camera8Xr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraGthread", "", configlist->Camera8Gthread, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraDoorin", "", configlist->Camera8Doorin, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraFcut", "", configlist->Camera8Fcut, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraBrate", "", configlist->Camera8Brate, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraBtol", "", configlist->Camera8Btol, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("Camera8", "CameraEthread", "", configlist->Camera8Ethread, 128, CONFIG_FILE_NAME);
 
-			if (0 == strcmp(LineBuf, "Camera2Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera2Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera2Ethread, pos);
-			}
-
-			//-----------------------------------------------------------------
-			if (0 == strcmp(LineBuf, "Camera3Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera3Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera3Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera3Ethread, pos);
-			}
-
-			//---------------------------------------------------------------
-
-
-			if (0 == strcmp(LineBuf, "Camera4Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera4Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera4Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera4Ethread, pos);
-			}
-
-			//-----------------------------------------------------------------
-
-			if (0 == strcmp(LineBuf, "Camera5Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera5Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera5Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera5Ethread, pos);
-			}
-
-			//-----------------------------------------------------------------
-			if (0 == strcmp(LineBuf, "Camera6Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera6Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera6Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera6Ethread, pos);
-			}
-
-			//-----------------------------------------------------------------
-			if (0 == strcmp(LineBuf, "Camera7Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera7Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera7Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera7Ethread, pos);
-			}
-
-			//-----------------------------------------------------------------
-			if (0 == strcmp(LineBuf, "Camera8Function"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Function, pos);
-			}
-
-			if (0 == strcmp(LineBuf, "Camera8Exptime"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Exptime, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Expauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Expauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Gain"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Gain, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Gainauto"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Gainauto, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Frate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Frate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Devid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Devid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8usrid"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8usrid, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Roih"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Roih, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Roiw"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Roiw, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Roix"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Roix, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Roiy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Roiy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Stampsel"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Stampsel, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Stampon"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Stampon, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tsele"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tsele, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tmode"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tmode, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tsrc"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tsrc, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tacti"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tacti, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tdelay"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tdelay, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Tcaen"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Tcaen, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Bmm"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Bmm, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Phi"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Phi, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Uo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Uo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Vo"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Vo, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Fx"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Fx, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Fy"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Fy, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8K1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8K1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8K2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8K2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8P1"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8P1, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8P2"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8P2, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Emax"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Emax, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Emin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Emin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Xr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Xr, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Gthread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Gthread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Doorin"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Doorin, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Fcut"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Fcut, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Brate"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Brate, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Btol"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Btol, pos);
-			}
-			if (0 == strcmp(LineBuf, "Camera8Ethread"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Camera8Ethread, pos);
-			}
-			if (0 == strcmp(LineBuf, "Filepath"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Filepath, pos);
-			}
-			if (0 == strcmp(LineBuf, "CSVFilepath"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->CSVFilepath, pos);
-			}
-			if (0 == strcmp(LineBuf, "Format"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->Format, pos);
-			}
-			if (0 == strcmp(LineBuf, "RemoteServer"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->RemoteServer, pos);
-			}
-			if (0 == strcmp(LineBuf, "ServerPort"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->ServerPort, pos);
-			}
-			if (0 == strcmp(LineBuf, "ServerAddr"))
-			{
-				for (; *pos == ' '; pos++) {}
-				strcpy(configlist->ServerAddr, pos);
-			}
-
-			//-----------------------------------------------------------------
-
-			/*else {
-				printf("Failed to READ FILE")
-				break;
-			}*/
-
-		}
-	}
-
+		//-----------------------------------------------------Read Config------------------------------------------------------
+															   //Global
+		//----------------------------------------------------------------------------------------------------------------------
+		GetPrivateProfileStringA("GlobalSettings", "AppAddr", "", configlist->AppAddr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "ServerAppAddr", "", configlist->ServerAppAddr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "DeviceNum", "", configlist->DeviceNum, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "Filepath", "", configlist->Filepath, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "Format", "", configlist->Format, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "RemoteServer", "", configlist->RemoteServer, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "ServerPort", "", configlist->ServerPort, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "ServerAddr", "", configlist->ServerAddr, 128, CONFIG_FILE_NAME);
+		GetPrivateProfileStringA("GlobalSettings", "CSVFilepath", "", configlist->CSVFilepath, 128, CONFIG_FILE_NAME);
+		//----------------------------------------------------------------------------------------------------------------------
 	fclose(configFile);
 	configFile = NULL;
 	return;

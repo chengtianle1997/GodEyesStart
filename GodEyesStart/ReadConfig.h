@@ -36,16 +36,6 @@ typedef struct {
 	char Camera0Tacti[MAX_LEN];
 	char Camera0Tdelay[MAX_LEN];
 	char Camera0Tcaen[MAX_LEN];
-	char Camera0Bmm[MAX_LEN];
-	char Camera0Phi[MAX_LEN];
-	char Camera0Uo[MAX_LEN];
-	char Camera0Vo[MAX_LEN];
-	char Camera0Fx[MAX_LEN];
-	char Camera0Fy[MAX_LEN];
-	char Camera0K1[MAX_LEN];
-	char Camera0K2[MAX_LEN];
-	char Camera0P1[MAX_LEN];
-	char Camera0P2[MAX_LEN];
 	char Camera0Emax[MAX_LEN];
 	char Camera0Emin[MAX_LEN];
 	char Camera0Xr[MAX_LEN];;
